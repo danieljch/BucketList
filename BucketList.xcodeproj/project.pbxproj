@@ -11,6 +11,8 @@
 		3089C90B280881BC00C49707 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089C90A280881BC00C49707 /* ContentView.swift */; };
 		3089C90D280881BE00C49707 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3089C90C280881BE00C49707 /* Assets.xcassets */; };
 		3089C910280881BE00C49707 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3089C90F280881BE00C49707 /* Preview Assets.xcassets */; };
+		30AA1F4B282C776900370B2B /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AA1F4A282C776900370B2B /* Location.swift */; };
+		30AA1F4F282C79D800370B2B /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AA1F4E282C79D800370B2B /* EditView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		3089C90A280881BC00C49707 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3089C90C280881BE00C49707 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3089C90F280881BE00C49707 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		30AA1F4A282C776900370B2B /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		30AA1F4E282C79D800370B2B /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +56,9 @@
 			isa = PBXGroup;
 			children = (
 				3089C908280881BC00C49707 /* BucketListApp.swift */,
+				30AA1F4E282C79D800370B2B /* EditView.swift */,
 				3089C90A280881BC00C49707 /* ContentView.swift */,
+				30AA1F4A282C776900370B2B /* Location.swift */,
 				3089C90C280881BE00C49707 /* Assets.xcassets */,
 				3089C90E280881BE00C49707 /* Preview Content */,
 			);
@@ -138,6 +144,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3089C90B280881BC00C49707 /* ContentView.swift in Sources */,
+				30AA1F4B282C776900370B2B /* Location.swift in Sources */,
+				30AA1F4F282C79D800370B2B /* EditView.swift in Sources */,
 				3089C909280881BC00C49707 /* BucketListApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
