@@ -7,51 +7,79 @@
 
 import SwiftUI
 import MapKit
+import LocalAuthentication
 
-struct Location: Identifiable {
-    let id = UUID()
-    let name: String
-    let coordinate: CLLocationCoordinate2D
+struct Location: Identifiable, Codable, Equatable {
+    let id: UUID
+    var name: String
+    var description: String
+    let latitude: Double
+    let longitude: Double
 }
-	
 struct ContentView: View {
-    @State private var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.5, longitude: -0.12), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
-    
+    @State private var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 50, longitude: 0), span: MKCoordinateSpan(latitudeDelta: 20, longitudeDelta: 20))
+    @State private var locations = [Location]()
+   
+    @State private var isUnlocked = false
     
     var body: some View {
-        let locations = [
-            Location(name: "Buckingham Palace", coordinate: CLLocationCoordinate2D(latitude: 51.501, longitude: -0.141)),
-            Location(name: "Tower of London", coordinate: CLLocationCoordinate2D(latitude: 51.508, longitude: -0.076))
-        ]
-        
-        NavigationView {
+        ZStack {
+            
             Map(coordinateRegion: $mapRegion, annotationItems: locations) { location in
-                MapAnnotation(coordinate: location.coordinate) {
-                    NavigationLink {
-                        Text(location.name)
+                MapMarker(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
+            }
+            .ignoresSafeArea()
+            Circle()
+                .fill(.blue)
+                .opacity(0.3)
+                .frame(width: 32, height: 32)
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    Button {
+                        // create a new location
+                        let newLocation = Location(id: UUID(), name: "New location", description: "", latitude: mapRegion.center.latitude, longitude: mapRegion.center.longitude)
+                        locations.append(newLocation)
                     } label: {
-                        Circle()
-                            .stroke(.red, lineWidth: 3)
-                            .frame(width: 44, height: 44)
+                        Image(systemName: "plus")
                     }
+                    .padding()
+                    .background(.black.opacity(0.75))
+                    .foregroundColor(.white)
+                    .font(.title)
+                    .clipShape(Circle())
+                    .padding(.trailing)
                 }
             }
-            .navigationTitle("London Explorer")
         }
+        
+    }
        
-        Text("Hello World")
-            .onTapGesture {
-                let str = "Test Message"
-                let url = getDocumentsDirectory().appendingPathComponent("message.txt")
+        
+    
+    
+    func authenticate() {
+        let context = LAContext()
+        var error: NSError?
 
-                do {
-                    try str.write(to: url, atomically: true, encoding: .utf8)
-                    let input = try String(contentsOf: url)
-                    print(input)
-                } catch {
-                    print(error.localizedDescription)
+        // check whether biometric authentication is possible
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            // it's possible, so go ahead and use it
+            let reason = "We need to unlock your data."
+
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticationError in
+                // authentication has now completed
+                if success {
+                    // authenticated successfully
+                    isUnlocked = true
+                } else {
+                    // there was a problem
                 }
             }
+        } else {
+            // no biometrics
+        }
     }
     
     func getDocumentsDirectory() -> URL {
